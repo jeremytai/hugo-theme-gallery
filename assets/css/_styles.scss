@@ -5,48 +5,111 @@ html {
 body {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   width: 100%;
-  min-height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--surface-1);
+  background-color: transparent;
   color: var(--text-1);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Aggressively override header background */
+body > header {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+body > header, 
+body > header *, 
+body > header::before, 
+body > header::after,
+body > header .btn,
+body > header .header-left,
+body > header .header-center,
+body > header .header-right {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }
 
 body > header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  margin-bottom: 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  min-height: 4rem;
+  z-index: 10;
+  margin: 0;
+  min-height: 32px;
+  padding: 12px 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  @media (min-width: 640px) {
-    margin-bottom: 3rem;
-  }
+.header-left,
+.header-center,
+.header-right {
+  display: flex;
+  align-items: center;
+}
 
-  ul {
-    display: inline-flex;
-  }
+.header-center {
+  flex: 1 1 0;
+  justify-content: center;
+}
 
-  .btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.5rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    height: 3rem;
-    font-weight: 600;
-    font-size: 1.25rem;
-    user-select: none;
-  }
+.header-left {
+  flex: 1 1 0;
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+}
 
-  .btn-square {
-    padding: 0;
-    width: 3rem;
-  }
+.header-right {
+  flex: 1 1 0;
+  justify-content: flex-end;
+}
+
+.header-left .logo-link {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+.logo-link {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+.home-logo {
+  width: 14px;
+  height: 14px;
+  display: block;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease;
+}
+
+.home-logo-default {
+  opacity: 1;
+}
+
+.home-logo-hover {
+  opacity: 0;
+}
+
+.logo-link:hover .home-logo-default {
+  opacity: 0;
+}
+
+.logo-link:hover .home-logo-hover {
+  opacity: 1;
 }
 
 body > menu {
@@ -74,10 +137,18 @@ body > menu {
   }
 }
 
+/* Remove any inherited margins/padding from main when it contains hero */
 body > main {
-  flex-grow: 1;
+  flex: 1 0 auto;
   width: 100%;
   height: 100%;
+  padding-top: 0 !important;
+  margin: 0;
+}
+
+/* Only add padding when NOT on home page with hero */
+body:not(.home) > main {
+  padding-top: 56px !important;
 }
 
 main > section {
@@ -91,11 +162,16 @@ main > section {
 }
 
 body > footer {
+  flex-shrink: 0;
+  width: 100%;
+  margin-top: auto;
   margin-right: auto;
   margin-left: auto;
   color: var(--text-2);
   font-size: 0.875rem;
   line-height: 1.4286;
+  min-height: 5em;
+  margin-bottom: 10em;
 
   section:last-of-type {
     display: flex;
@@ -108,6 +184,10 @@ body > footer {
       text-decoration-line: underline;
     }
   }
+}
+
+body.home > footer {
+  padding-top: 100px;
 }
 
 hgroup {
@@ -427,4 +507,29 @@ nav.categories {
   @media (min-width: 640px) {
     margin-bottom: 4rem;
   }
+}
+
+.a24-hero {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  margin-top: -14px !important;
+  padding: 0 !important;
+  top: 0;
+  left: 0;
+}
+
+.a24-hero__backgrounds,
+.a24-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  top: 0;
+  left: 0;
 }
